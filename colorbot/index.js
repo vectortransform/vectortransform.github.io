@@ -120,6 +120,7 @@ async function setup() {
     button.addEventListener('click', async () => {
       const predictor = await new Classifier().init(HOSTED_URLS);
     });
+    console.log(predictor)
     button.style.display = 'inline-block';
     document.getElementById('predict-text').onclick = function(){
       console.log('Predicting...');
