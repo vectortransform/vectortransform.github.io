@@ -1,32 +1,32 @@
-const HOSTED_URLS = {
-  model:
-      'model_js/model.json',
-  metadata:
-      'model_js/metadata.json'
-};
+// const HOSTED_URLS = {
+//   model:
+//       'model_js/model.json',
+//   metadata:
+//       'model_js/metadata.json'
+// };
 
-function status(statusText) {
-  console.log(statusText);
-  document.getElementById('status').textContent = statusText;
-}
+// function status(statusText) {
+//   console.log(statusText);
+//   document.getElementById('status').textContent = statusText;
+// }
 
-function showMetadata(metadataJSON) {
-  document.getElementById('maxLen').textContent =
-      metadataJSON['max_len'];
-}
+// function showMetadata(metadataJSON) {
+//   document.getElementById('maxLen').textContent =
+//       metadataJSON['max_len'];
+// }
 
-function disableLoadModelButtons() {
-  document.getElementById('load-model').style.display = 'none';
-}
+// function disableLoadModelButtons() {
+//   document.getElementById('load-model').style.display = 'none';
+// }
 
-function doPredict(predict) {
-  const textField = document.getElementById('text-entry');
-  const result = predict(textField.value);
-  RGB_string = 'R: '+result.colors[0]+'; G: '+result.colors[1]+'; B: '+result.colors[2];
-  //console.log(score_string);
-  status(
-      RGB_string + ' elapsed: ' + result.elapsed.toFixed(3) + ' ms)');
-}
+// function doPredict(predict) {
+//   const textField = document.getElementById('text-entry');
+//   const result = predict(textField.value);
+//   RGB_string = 'R: '+result.colors[0]+'; G: '+result.colors[1]+'; B: '+result.colors[2];
+//   //console.log(score_string);
+//   status(
+//       RGB_string + ' elapsed: ' + result.elapsed.toFixed(3) + ' ms)');
+// }
 
 
 
