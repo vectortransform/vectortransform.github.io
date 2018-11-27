@@ -19,9 +19,9 @@ function disableLoadModelButtons() {
   document.getElementById('load-model').style.display = 'none';
 }
 
-function doPredict(predict) {
+function doPredict(predictor) {
   const textField = document.getElementById('text-entry');
-  const result = predict(textField.value);
+  const result = predictor.predict(textField.value);
   RGB_string = 'R: '+result.colors[0]+'; G: '+result.colors[1]+'; B: '+result.colors[2];
 //   console.log(score_string);
   status(
@@ -68,65 +68,65 @@ async function loadHostedMetadata(url) {
 
 
 
-// class Classifier {
+class Classifier {
 
-//   async init(urls) {
-//     this.urls = urls;
-//     this.model = await loadHostedPretrainedModel(urls.model);
-//     await this.loadMetadata();
-//     return this;
-//   }
+  async init(urls) {
+    this.urls = urls;
+    this.model = await loadHostedPretrainedModel(urls.model);
+    await this.loadMetadata();
+    return this;
+  }
 
-//   async loadMetadata() {
-//     const metadata =
-//         await loadHostedMetadata(this.urls.metadata);
-//     showMetadata(metadata);
-//     this.maxLen = metadata['max_len'];
-//     console.log('maxLen = ' + this.maxLen);
-//     this.wordIndex = metadata['word_index']
-//   }
+  async loadMetadata() {
+    const metadata =
+        await loadHostedMetadata(this.urls.metadata);
+    showMetadata(metadata);
+    this.maxLen = metadata['max_len'];
+    console.log('maxLen = ' + this.maxLen);
+    this.wordIndex = metadata['word_index']
+  }
 
-//   predict(text) {
-//     // Convert to lower case and remove all punctuations.
-//     const inputText =
-//         text.trim().toLowerCase().replace(/(\.|\,|\!)/g, '').split(' ');
-//     // Look up word indices.
-//     const inputBuffer = tf.buffer([1, this.maxLen], 'float32');
-//     for (let i = 0; i < inputText.length; ++i) {
-//       const word = inputText[i];
-//       inputBuffer.set(this.wordIndex[word], 0, i);
-//       //console.log(word, this.wordIndex[word], inputBuffer);
-//     }
-//     const input = inputBuffer.toTensor();
-//     //console.log(input);
+  predict(text) {
+    // Convert to lower case and remove all punctuations.
+    const inputText =
+        text.trim().toLowerCase().replace(/(\.|\,|\!)/g, '');
+    // Look up word indices.
+    const inputBuffer = tf.buffer([1, this.maxLen], 'float32');
+    for (let i = 0; i < inputText.length; ++i) {
+      const word = inputText[i];
+      inputBuffer.set(this.wordIndex[word], 0, i);
+      //console.log(word, this.wordIndex[word], inputBuffer);
+    }
+    const input = inputBuffer.toTensor();
+    //console.log(input);
 
-//     status('Running inference');
-//     const beginMs = performance.now();
-//     const predictOut = this.model.predict(input);
-//     //console.log(predictOut.dataSync());
-//     const score = predictOut.dataSync();//[0];
-//     predictOut.dispose();
-//     const endMs = performance.now();
+    status('Running inference');
+    const beginMs = performance.now();
+    const predictOut = this.model.predict(input);
+    console.log('Lets see the result!');
+    console.log(predictOut.dataSync());
+    const colors = predictOut.dataSync();//[0];
+    predictOut.dispose();
+    const endMs = performance.now();
 
-//     return {score: score, elapsed: (endMs - beginMs)};
-//   }
-// };
+    return {colors: colors, elapsed: (endMs - beginMs)};
+  }
+};
 
 async function setup() {
   if (await urlExists(HOSTED_URLS.model)) {
     status('Model available: ' + HOSTED_URLS.model);
     const button = document.getElementById('load-model');
-//     button.addEventListener('click', async () => {
-//       const predictor = await new Classifier().init(HOSTED_URLS);
-//     });
+    button.addEventListener('click', async () => {
+      const predictor = await new Classifier().init(HOSTED_URLS);
+    });
     button.style.display = 'inline-block';
     document.getElementById('predict-text').onclick = function(){
       console.log('Predicting...');
-      // doPredict(predict);
+      doPredict(predictor);
     };
   };
   status('Standing by.');
 }
 
 setup();
-
