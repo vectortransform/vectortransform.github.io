@@ -30,53 +30,53 @@ function doPredict(predict) {
 
 
 
-// async function urlExists(url) {
-//   status('Testing url ' + url);
-//   try {
-//     const response = await fetch(url, {method: 'HEAD'});
-//     return response.ok;
-//   } catch (err) {
-//     return false;
-//   }
-// }
+async function urlExists(url) {
+  status('Testing url ' + url);
+  try {
+    const response = await fetch(url, {method: 'HEAD'});
+    return response.ok;
+  } catch (err) {
+    return false;
+  }
+}
 
-// async function loadHostedPretrainedModel(url) {
-//   status('Loading pretrained model from ' + url);
-//   try {
-//     const model = await tf.loadModel(url);
-//     status('Done loading pretrained model.');
-//     disableLoadModelButtons();
-//     return model;
-//   } catch (err) {
-//     console.error(err);
-//     status('Loading pretrained model failed.');
-//   }
-// }
+async function loadHostedPretrainedModel(url) {
+  status('Loading pretrained model from ' + url);
+  try {
+    const model = await tf.loadModel(url);
+    status('Done loading pretrained model.');
+    disableLoadModelButtons();
+    return model;
+  } catch (err) {
+    console.error(err);
+    status('Loading pretrained model failed.');
+  }
+}
 
-// async function loadHostedMetadata(url) {
-//   status('Loading metadata from ' + url);
-//   try {
-//     const metadataJson = await fetch(url);
-//     const metadata = await metadataJson.json();
-//     status('Done loading metadata.');
-//     return metadata;
-//   } catch (err) {
-//     console.error(err);
-//     status('Loading metadata failed.');
-//   }
-// }
+async function loadHostedMetadata(url) {
+  status('Loading metadata from ' + url);
+  try {
+    const metadataJson = await fetch(url);
+    const metadata = await metadataJson.json();
+    status('Done loading metadata.');
+    return metadata;
+  } catch (err) {
+    console.error(err);
+    status('Loading metadata failed.');
+  }
+}
 
 
 
 // class Classifier {
-//
+
 //   async init(urls) {
 //     this.urls = urls;
 //     this.model = await loadHostedPretrainedModel(urls.model);
 //     await this.loadMetadata();
 //     return this;
 //   }
-//
+
 //   async loadMetadata() {
 //     const metadata =
 //         await loadHostedMetadata(this.urls.metadata);
@@ -85,7 +85,7 @@ function doPredict(predict) {
 //     console.log('maxLen = ' + this.maxLen);
 //     this.wordIndex = metadata['word_index']
 //   }
-//
+
 //   predict(text) {
 //     // Convert to lower case and remove all punctuations.
 //     const inputText =
@@ -99,7 +99,7 @@ function doPredict(predict) {
 //     }
 //     const input = inputBuffer.toTensor();
 //     //console.log(input);
-//
+
 //     status('Running inference');
 //     const beginMs = performance.now();
 //     const predictOut = this.model.predict(input);
@@ -107,15 +107,15 @@ function doPredict(predict) {
 //     const score = predictOut.dataSync();//[0];
 //     predictOut.dispose();
 //     const endMs = performance.now();
-//
+
 //     return {score: score, elapsed: (endMs - beginMs)};
 //   }
 // };
-//
-// async function setup() {
-//   if (await urlExists(HOSTED_URLS.model)) {
-//     status('Model available: ' + HOSTED_URLS.model);
-//     const button = document.getElementById('load-model');
+
+async function setup() {
+  if (await urlExists(HOSTED_URLS.model)) {
+    status('Model available: ' + HOSTED_URLS.model);
+    const button = document.getElementById('load-model');
 //     button.addEventListener('click', async () => {
 //       const predictor = await new Classifier().init(HOSTED_URLS);
 //       document.getElementById('predict-text').onclick = function(){
@@ -123,11 +123,11 @@ function doPredict(predict) {
 //           // doPredict(predict);
 //       };
 //     });
-//     button.style.display = 'inline-block';
-//   }
+    button.style.display = 'inline-block';
+  }
 
-//   status('Standing by.');
-// }
+  status('Standing by.');
+}
 
-// setup();
+setup();
 
