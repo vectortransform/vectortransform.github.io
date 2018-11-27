@@ -109,7 +109,7 @@ class Classifier {
     const predictOut = this.model.predict(input);
     console.log('Here is the result!');
     console.log(predictOut.dataSync());
-    const colors = predictOut.dataSync();//[0];
+    const colors = predictOut.dataSync()[0];//[0];
     predictOut.dispose();
     const endMs = performance.now();
 
