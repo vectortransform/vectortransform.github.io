@@ -19,13 +19,13 @@ function disableLoadModelButtons() {
   document.getElementById('load-model').style.display = 'none';
 }
 
-function doPredict(sometext) {
+function doPredict(predict) {
   const textField = document.getElementById('text-entry');
-//   const result = predict(textField.value);
-//   RGB_string = 'R: '+result.colors[0]+'; G: '+result.colors[1]+'; B: '+result.colors[2];
-//   status(
-//       RGB_string + ' elapsed: ' + result.elapsed.toFixed(3) + ' ms)');
-  status(textField+sometext);
+  const result = predict(textField.value);
+  RGB_string = 'R: '+result.colors[0]+'; G: '+result.colors[1]+'; B: '+result.colors[2];
+//   console.log(score_string);
+  status(
+      RGB_string + ' elapsed: ' + result.elapsed.toFixed(3) + ' ms)');
 }
 
 
@@ -130,7 +130,4 @@ function doPredict(sometext) {
 // }
 
 // setup();
-document.getElementById('predict-text').onclick = function(){
-  console.log('Predicting...');
-  doPredict('123');
-};
+
