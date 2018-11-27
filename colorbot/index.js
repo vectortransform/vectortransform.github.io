@@ -19,7 +19,7 @@ function disableLoadModelButtons() {
   document.getElementById('load-model').style.display = 'none';
 }
 
-function doPredict(predict) {
+function doPredict() {
   const textField = document.getElementById('text-entry');
 //   const result = predict(textField.value);
 //   RGB_string = 'R: '+result.colors[0]+'; G: '+result.colors[1]+'; B: '+result.colors[2];
@@ -132,4 +132,5 @@ function doPredict(predict) {
 // setup();
 document.getElementById('predict-text').onclick = function(){
   console.log('Predicting...');
+  doPredict();
 };
