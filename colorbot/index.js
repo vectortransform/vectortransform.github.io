@@ -29,7 +29,7 @@ function doPredict(predictor) {
 //   console.log(score_string);
   status(
       RGB_string + ' elapsed: ' + result.elapsed.toFixed(3) + ' ms)');
-  document.getElementById('color-box').style.color = "rgb("+R_value+","+G_value+","+B_value+")";
+  document.getElementById('color-box').style.backgroundColor = "rgb("+R_value+","+G_value+","+B_value+")";
 }
 
 
