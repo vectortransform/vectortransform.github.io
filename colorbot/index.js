@@ -121,13 +121,13 @@ async function setup() {
 //     });
     button.style.display = 'inline-block';
 
-    document.getElementById('predict-text').onclick = function(){
-      console.log('Predicting...');
-      // doPredict(predict);
-    };
+    
   };
   status('Standing by.');
 }
-
+document.getElementById('predict-text').onclick = function(){
+      console.log('Predicting...');
+      // doPredict(predict);
+    };
 setup();
 
