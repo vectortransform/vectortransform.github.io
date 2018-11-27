@@ -1,0 +1,39 @@
+<!doctype html>
+
+<body>
+  <style>
+    #textfield {
+      font-size: 120%;
+      width: 60%;
+      height: 200px;
+    }
+  </style>
+  <h1>
+    Colorbot: color name to RGB values
+  </h1>
+  <hr>
+  <div class="create-model">
+    <button id="load-model">Load model</button>
+  </div>
+  <hr>
+  <div>
+      <span>Max length: </span>
+      <span id="maxLen"></span>
+  </div>
+  <br>
+  <div>
+    <textarea id="text-entry"></textarea>
+  </div>
+  <div class="predict-button">
+    <button id="predict-text">Predict RGB values</button>
+  </div>
+  <hr>
+  <div>
+    <span id="status">Standing by.</span>
+  </div>
+
+  <div id="color-box" style="height:100px; width:100px; background-color:rgb(255, 255, 255);"></div>
+
+  <script src='https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js'></script>
+  <script src='index.js'></script>
+</body>
