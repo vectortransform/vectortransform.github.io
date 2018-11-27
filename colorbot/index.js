@@ -120,14 +120,13 @@ async function setup() {
 //       const predictor = await new Classifier().init(HOSTED_URLS);
 //     });
     button.style.display = 'inline-block';
-
-    
-  };
-  status('Standing by.');
-}
-document.getElementById('predict-text').onclick = function(){
+    document.getElementById('predict-text').onclick = function(){
       console.log('Predicting...');
       // doPredict(predict);
     };
+  };
+  status('Standing by.');
+}
+
 setup();
 
