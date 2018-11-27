@@ -119,13 +119,12 @@ async function setup() {
     const button = document.getElementById('load-model');
     button.addEventListener('click', async () => {
       const predictor = await new Classifier().init(HOSTED_URLS);
+      document.getElementById('predict-text').onclick = function(){
+        console.log('Predicting...');
+        doPredict(predictor);
+      };
     });
-    console.log(predictor);
     button.style.display = 'inline-block';
-    document.getElementById('predict-text').onclick = function(){
-      console.log('Predicting...');
-      doPredict(predictor);
-    };
   };
   status('Standing by.');
 }
