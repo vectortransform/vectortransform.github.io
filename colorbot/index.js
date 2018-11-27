@@ -28,7 +28,7 @@ function doPredict(predictor) {
   RGB_string = 'R: '+R_value+'; G: '+G_value+'; B: '+B_value;
 //   console.log(RGB_string);
   status(
-      RGB_string + ' elapsed: ' + result.elapsed.toFixed(3) + ' ms');
+      RGB_string + '; elapsed: ' + result.elapsed.toFixed(3) + ' ms');
   document.getElementById('color-box').style.backgroundColor = "rgb("+R_value+","+G_value+","+B_value+")";
 }
 
