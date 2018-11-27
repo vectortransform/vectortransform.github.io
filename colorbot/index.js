@@ -22,9 +22,9 @@ function disableLoadModelButtons() {
 function doPredict(predictor) {
   const textField = document.getElementById('text-entry');
   const result = predictor.predict(textField.value);
-  R_value = Math.floor(255*result.colors[0]);
-  G_value = Math.floor(255*result.colors[1]);
-  B_value = Math.floor(255*result.colors[2]);
+  R_value = Math.round(255*result.colors[0]);
+  G_value = Math.round(255*result.colors[1]);
+  B_value = Math.round(255*result.colors[2]);
   RGB_string = 'R: '+R_value+'; G: '+G_value+'; B: '+B_value;
 //   console.log(RGB_string);
   status(
