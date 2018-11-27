@@ -26,7 +26,7 @@ function doPredict(predictor) {
   G_value = Math.floor(255*result.colors[1]);
   B_value = Math.floor(255*result.colors[2]);
   RGB_string = 'R: '+R_value+'; G: '+G_value+'; B: '+B_value;
-//   console.log(score_string);
+//   console.log(RGB_string);
   status(
       RGB_string + ' elapsed: ' + result.elapsed.toFixed(3) + ' ms');
   document.getElementById('color-box').style.backgroundColor = "rgb("+R_value+","+G_value+","+B_value+")";
@@ -99,10 +99,10 @@ class Classifier {
     for (let i = 0; i < inputText.length; ++i) {
       const word = inputText[i];
       inputBuffer.set(this.wordIndex[word], 0, i);
-      //console.log(word, this.wordIndex[word], inputBuffer);
+      console.log(word, this.wordIndex[word], inputBuffer);
     }
     const input = inputBuffer.toTensor();
-    //console.log(input);
+    console.log(input);
 
     status('Running inference');
     const beginMs = performance.now();
