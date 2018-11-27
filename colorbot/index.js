@@ -22,10 +22,14 @@ function disableLoadModelButtons() {
 function doPredict(predictor) {
   const textField = document.getElementById('text-entry');
   const result = predictor.predict(textField.value);
-  RGB_string = 'R: '+result.colors[0]+'; G: '+result.colors[1]+'; B: '+result.colors[2];
+  R_value = Math.floor(255*result.colors[0]);
+  G_value = Math.floor(255*result.colors[1]);
+  B_value = Math.floor(255*result.colors[2]);
+  RGB_string = 'R: '+R_value+'; G: '+G_value+'; B: '+B_value;
 //   console.log(score_string);
   status(
       RGB_string + ' elapsed: ' + result.elapsed.toFixed(3) + ' ms)');
+  document.getElementById('color-box').style.color = "rgb("+R_value+","+G_value+","+B_value+")";
 }
 
 
@@ -103,7 +107,7 @@ class Classifier {
     status('Running inference');
     const beginMs = performance.now();
     const predictOut = this.model.predict(input);
-    console.log('Lets see the result!');
+    console.log('Here is the result!');
     console.log(predictOut.dataSync());
     const colors = predictOut.dataSync();//[0];
     predictOut.dispose();
