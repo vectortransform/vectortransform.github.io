@@ -131,6 +131,5 @@
 
 // setup();
 document.getElementById('predict-text').onclick = function(){
-    console.log('Predicting...');
-    // doPredict(predict);
+  console.log('Predicting...');
 };
