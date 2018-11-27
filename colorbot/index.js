@@ -15,20 +15,6 @@ function showMetadata(metadataJSON) {
       metadataJSON['max_len'];
 }
 
-
-
-//
-// function settextField(text, predict) {
-//   const textField = document.getElementById('text-entry');
-//   textField.value = text;
-//   doPredict(predict);
-// }
-//
-// function setPredictFunction(predict) {
-//   const textField = document.getElementById('text-entry');
-//   textField.addEventListener('input', () => doPredict(predict));
-// }
-//
 function disableLoadModelButtons() {
   document.getElementById('load-model').style.display = 'none';
 }
@@ -41,51 +27,46 @@ function doPredict(predict) {
   status(
       RGB_string + ' elapsed: ' + result.elapsed.toFixed(3) + ' ms)');
 }
-//
-// function prepUI(predict) {
-//   setPredictFunction(predict);
-//   const testExampleSelect = document.getElementById('example-select');
-//   testExampleSelect.addEventListener('change', () => {
-//     settextField(examples[testExampleSelect.value], predict);
-//   });
-//   settextField(examples['example1'], predict);
+
+
+
+// async function urlExists(url) {
+//   status('Testing url ' + url);
+//   try {
+//     const response = await fetch(url, {method: 'HEAD'});
+//     return response.ok;
+//   } catch (err) {
+//     return false;
+//   }
 // }
-//
-async function urlExists(url) {
-  status('Testing url ' + url);
-  try {
-    const response = await fetch(url, {method: 'HEAD'});
-    return response.ok;
-  } catch (err) {
-    return false;
-  }
-}
 
-async function loadHostedPretrainedModel(url) {
-  status('Loading pretrained model from ' + url);
-  try {
-    const model = await tf.loadModel(url);
-    status('Done loading pretrained model.');
-    disableLoadModelButtons();
-    return model;
-  } catch (err) {
-    console.error(err);
-    status('Loading pretrained model failed.');
-  }
-}
+// async function loadHostedPretrainedModel(url) {
+//   status('Loading pretrained model from ' + url);
+//   try {
+//     const model = await tf.loadModel(url);
+//     status('Done loading pretrained model.');
+//     disableLoadModelButtons();
+//     return model;
+//   } catch (err) {
+//     console.error(err);
+//     status('Loading pretrained model failed.');
+//   }
+// }
 
-async function loadHostedMetadata(url) {
-  status('Loading metadata from ' + url);
-  try {
-    const metadataJson = await fetch(url);
-    const metadata = await metadataJson.json();
-    status('Done loading metadata.');
-    return metadata;
-  } catch (err) {
-    console.error(err);
-    status('Loading metadata failed.');
-  }
-}
+// async function loadHostedMetadata(url) {
+//   status('Loading metadata from ' + url);
+//   try {
+//     const metadataJson = await fetch(url);
+//     const metadata = await metadataJson.json();
+//     status('Done loading metadata.');
+//     return metadata;
+//   } catch (err) {
+//     console.error(err);
+//     status('Loading metadata failed.');
+//   }
+// }
+
+
 
 // class Classifier {
 //
@@ -131,21 +112,25 @@ async function loadHostedMetadata(url) {
 //   }
 // };
 //
-async function setup() {
-  if (await urlExists(HOSTED_URLS.model)) {
-    status('Model available: ' + HOSTED_URLS.model);
-    const button = document.getElementById('load-model');
-    button.addEventListener('click', async () => {
-      const predictor = await new Classifier().init(HOSTED_URLS);
-      document.getElementById('predict-text').onclick = function(){
-          console.log('Predicting...');
-          // doPredict(predict);
-      };
-    });
-    button.style.display = 'inline-block';
-  }
+// async function setup() {
+//   if (await urlExists(HOSTED_URLS.model)) {
+//     status('Model available: ' + HOSTED_URLS.model);
+//     const button = document.getElementById('load-model');
+//     button.addEventListener('click', async () => {
+//       const predictor = await new Classifier().init(HOSTED_URLS);
+//       document.getElementById('predict-text').onclick = function(){
+//           console.log('Predicting...');
+//           // doPredict(predict);
+//       };
+//     });
+//     button.style.display = 'inline-block';
+//   }
 
-  status('Standing by.');
-}
+//   status('Standing by.');
+// }
 
-setup();
+// setup();
+document.getElementById('predict-text').onclick = function(){
+    console.log('Predicting...');
+    // doPredict(predict);
+};
