@@ -1,0 +1,34 @@
+<!doctype html>
+
+<body align="center">
+    <h1>
+        ASL Recognizer
+    </h1>
+    <hr>
+
+    <div class="create-model">
+        <button id="load-model">Load model</button>
+    </div>
+    <hr>
+
+    <div>
+        <video id="player" controls autoplay></video>
+        <canvas id="snapshot" width=640 height=480 ></canvas>
+    </div>
+    <div>
+        <!-- Stop Button -->
+        <a href="#" onclick="window.clearInterval(int);return false;">Stop</a>
+    </div>
+    <hr>
+
+    <div>
+        <span id="status">Standing by.</span>
+    </div>
+    <div>
+        <span id="word"></span>
+    </div>
+
+</body>
+
+<script src='https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js'></script>
+<script src='index.js'></script>
