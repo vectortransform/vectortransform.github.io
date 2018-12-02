@@ -111,7 +111,7 @@ class Classifier {
 
 function addChar(label) {
     if (lastchar.textContent.slice(-1) != label) {
-        chars.textContent += lastchar;
+        chars.textContent += lastchar.textContent;
         lastchar.textContent = label;
     }
 }
