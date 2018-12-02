@@ -93,9 +93,8 @@ class Classifier {
         const beginMs = performance.now();
 
         const predictOut = this.model.predict(inputImg);
-        console.log(predictOut.shape)
-        const argMaxPred = tf.argMax(predictOut);
-        const maxPred = tf.max(predictOut);
+        const argMaxPred = tf.argMax(predictOut[0]);
+        const maxPred = tf.max(predictOut[0]);
         argMaxPred.print();
         maxPred.print();
         console.log('Here is the result!');
