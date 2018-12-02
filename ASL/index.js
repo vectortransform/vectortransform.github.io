@@ -119,6 +119,7 @@ async function setup() {
         button.style.display = 'inline-block';
 
         if (self.predictor !== null) {
+            console.log(self.predictor)
             keepPredict(self.predictor);
             var int=self.setInterval(keepPredict, 10000);
         }
