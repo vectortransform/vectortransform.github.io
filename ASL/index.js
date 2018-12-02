@@ -93,6 +93,7 @@ class Classifier {
         const beginMs = performance.now();
 
         const predictOut = this.model.predict(inputImg);
+        console.log(predictOut.shape)
         const argMaxPred = tf.argMax(predictOut);
         const maxPred = tf.max(predictOut);
         argMaxPred.print();
@@ -104,7 +105,7 @@ class Classifier {
         predictOut.dispose();
         argMaxPred.dispose();
         maxPred.dispose();
-        
+
         const endMs = performance.now();
         return {label: label, prob: prob, elapsed: (endMs - beginMs)};
     }
