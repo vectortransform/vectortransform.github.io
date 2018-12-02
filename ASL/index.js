@@ -105,7 +105,7 @@ class Classifier {
 function keepPredict(predictor) {
     snapshotCanvas.getContext('2d').drawImage(player, 0, 0, snapshotCanvas.width, snapshotCanvas.height);
     const img = tf.fromPixels(snapshotCanvas); // const or var?
-    const result = predictor.predict(img);
+    const result = predictor.predict(img.asType('float32'));
     status('elapsed: ' + result.elapsed.toFixed(3) + ' ms)');
 }
 
@@ -116,7 +116,9 @@ async function setup() {
         button.addEventListener('click', async () => {
             const predictor = await new Classifier().init(HOSTED_URLS);
             console.log(predictor);
-            var int=self.setInterval(keepPredict(predictor), 10000);
+            var int = self.setInterval(function () {
+                keepPredict(predictor);
+            }, 10000);
 //             window.p = predictor;
 //             console.log(window.p);
         });
