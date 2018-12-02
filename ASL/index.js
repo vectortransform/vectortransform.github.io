@@ -112,6 +112,7 @@ function keepPredict(predictor) {
     snapshotCanvas.getContext('2d').drawImage(player, 0, 0, snapshotCanvas.width, snapshotCanvas.height);
     const img = tf.fromPixels(snapshotCanvas);
     const result = predictor.predict(img.asType('float32'));
+    console.log(result.prob);
     status('Label: ' + result.label + ' ' + result.prob.toFixed(5) + '; elapsed: ' + result.elapsed.toFixed(3) + ' ms)');
     word.textContent += result.label;
 }
