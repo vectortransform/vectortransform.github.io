@@ -5,6 +5,7 @@ const HOSTED_URLS = {
 
 const player = document.getElementById('player');
 const snapshotCanvas = document.getElementById('snapshot');
+const word = document.getElementById('word');
 
 
 // Enable camera streaming
@@ -81,7 +82,6 @@ class Classifier {
     predict(img) {
         // Convert to image_size
         var inputImg = tf.image.resizeNearestNeighbor(img, [this.image_size, this.image_size]);
-        inputImg.print()
         // Preprocess the image
         inputImg = inputImg.sub(this.RGB_mean)
         inputImg = inputImg.div(127.5)
@@ -93,20 +93,20 @@ class Classifier {
         const beginMs = performance.now();
         const predictOut = this.model.predict(inputImg);
         console.log('Here is the result!');
-        console.log(predictOut.dataSync()); // return how many probabilities?
-        // const colors = predictOut.dataSync();//[0];
+        const probs = predictOut.dataSync();// return how many probabilities?
         predictOut.dispose();
         const endMs = performance.now();
 
-        return {elapsed: (endMs - beginMs)};
+        return {probs: probs, elapsed: (endMs - beginMs)};
     }
 };
 
 function keepPredict(predictor) {
     snapshotCanvas.getContext('2d').drawImage(player, 0, 0, snapshotCanvas.width, snapshotCanvas.height);
-    const img = tf.fromPixels(snapshotCanvas); // const or var?
+    const img = tf.fromPixels(snapshotCanvas);
     const result = predictor.predict(img.asType('float32'));
-    status('elapsed: ' + result.elapsed.toFixed(3) + ' ms)');
+    status('probabilities: ' + result.probs.toFixed(5) + '; elapsed: ' + result.elapsed.toFixed(3) + ' ms)');
+    
 }
 
 async function setup() {
@@ -116,18 +116,11 @@ async function setup() {
         button.addEventListener('click', async () => {
             const predictor = await new Classifier().init(HOSTED_URLS);
             console.log(predictor);
-            var int = self.setInterval(function () {
+            window.int = self.setInterval(function () {
                 keepPredict(predictor);
-            }, 10000);
-//             window.p = predictor;
-//             console.log(window.p);
+            }, 1000);
         });
         button.style.display = 'inline-block';
-
-//         if (predictor !== null) {
-//             keepPredict(predictor);
-//             var int=self.setInterval(keepPredict, 10000);
-//         }
     };
     status('Standing by.');
 }
