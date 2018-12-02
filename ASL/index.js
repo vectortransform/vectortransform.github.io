@@ -105,7 +105,7 @@ function keepPredict(predictor) {
     snapshotCanvas.getContext('2d').drawImage(player, 0, 0, snapshotCanvas.width, snapshotCanvas.height);
     const img = tf.fromPixels(snapshotCanvas);
     const result = predictor.predict(img.asType('float32'));
-    status('probabilities: ' + result.probs.toFixed(5) + '; elapsed: ' + result.elapsed.toFixed(3) + ' ms)');
+    status('probabilities: ' + result.probs + '; elapsed: ' + result.elapsed.toFixed(3) + ' ms)');
     
 }
 
