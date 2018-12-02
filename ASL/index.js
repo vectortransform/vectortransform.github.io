@@ -93,15 +93,15 @@ class Classifier {
         const beginMs = performance.now();
 
         const predictOut = this.model.predict(inputImg);
-        const argMaxPred = tf.argMax(predictionOut);
-        const maxPred = tf.max(predictionOut);
+        const argMaxPred = tf.argMax(predictOut);
+        const maxPred = tf.max(predictOut);
         argMaxPred.print();
         maxPred.print();
         console.log('Here is the result!');
 //         const probs = predictOut.dataSync();// return how many probabilities?
         const label = this.int2label[argMaxPred.dataSync()];
         const prob = maxPred.dataSync();
-//         predictOut.dispose();
+        predictOut.dispose();
         argMaxPred.dispose();
         maxPred.dispose();
         
