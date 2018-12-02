@@ -5,7 +5,8 @@ const HOSTED_URLS = {
 
 const player = document.getElementById('player');
 const snapshotCanvas = document.getElementById('snapshot');
-const word = document.getElementById('word');
+const chars = document.getElementById('chars');
+const lastchar = document.getElementById('lastchar');
 
 
 // Enable camera streaming
@@ -108,6 +109,13 @@ class Classifier {
     }
 };
 
+function addChar(label) {
+    if (lastchar.textContent.slice(-1) != label) {
+        chars.textContent += lastchar;
+        lastchar.textContent = label;
+    }
+}
+
 function keepPredict(predictor) {
     snapshotCanvas.getContext('2d').drawImage(player, 0, 0, snapshotCanvas.width, snapshotCanvas.height);
     const img = tf.fromPixels(snapshotCanvas);
@@ -115,7 +123,7 @@ function keepPredict(predictor) {
     console.log(result.label);
     console.log(result.prob);
     status('Label: ' + result.label + ' ' + result.prob[0].toFixed(3) + '; elapsed: ' + result.elapsed.toFixed(3) + ' ms)');
-    word.textContent += result.label;
+    addChar(result.label);
 }
 
 async function setup() {
