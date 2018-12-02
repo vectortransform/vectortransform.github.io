@@ -91,13 +91,22 @@ class Classifier {
         // Predict the label
         status('Running inference');
         const beginMs = performance.now();
-        const predictOut = this.model.predict(inputImg);
-        console.log('Here is the result!');
-        const probs = predictOut.dataSync();// return how many probabilities?
-        predictOut.dispose();
-        const endMs = performance.now();
 
-        return {probs: probs, elapsed: (endMs - beginMs)};
+        const predictOut = this.model.predict(inputImg);
+        const argMaxPred = tf.argMax(predictionOut);
+        const maxPred = tf.max(predictionOut);
+        argMaxPred.print();
+        maxPred.print();
+        console.log('Here is the result!');
+//         const probs = predictOut.dataSync();// return how many probabilities?
+        const label = this.int2label[argMaxPred.dataSync()];
+        const prob = maxPred.dataSync();
+//         predictOut.dispose();
+        argMaxPred.dispose();
+        maxPred.dispose();
+        
+        const endMs = performance.now();
+        return {label: label, prob: prob, elapsed: (endMs - beginMs)};
     }
 };
 
@@ -105,8 +114,8 @@ function keepPredict(predictor) {
     snapshotCanvas.getContext('2d').drawImage(player, 0, 0, snapshotCanvas.width, snapshotCanvas.height);
     const img = tf.fromPixels(snapshotCanvas);
     const result = predictor.predict(img.asType('float32'));
-    status('probabilities: ' + result.probs + '; elapsed: ' + result.elapsed.toFixed(3) + ' ms)');
-    
+    status('Label: ' + result.label + ' ' + result.prob + '; elapsed: ' + result.elapsed.toFixed(3) + ' ms)');
+    // word context
 }
 
 async function setup() {
