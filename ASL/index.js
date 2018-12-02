@@ -93,8 +93,12 @@ class Classifier {
         const beginMs = performance.now();
 
         const predictOut = this.model.predict(inputImg);
+        predictOut.print();
+        tf.squeeze(predictOut).print();
         const argMaxPred = tf.argMax(tf.squeeze(predictOut));
         const maxPred = tf.max(tf.squeeze(predictOut));
+        argMaxPred.print();
+        maxPred.print();
         // console.log('Here is the result!');
         // return how many probabilities?
         const label = this.int2label[argMaxPred.dataSync()];
@@ -113,7 +117,7 @@ function keepPredict(predictor) {
     const img = tf.fromPixels(snapshotCanvas);
     const result = predictor.predict(img.asType('float32'));
     console.log(result.prob);
-    status('Label: ' + result.label + ' ' + result.prob.toFixed(5) + '; elapsed: ' + result.elapsed.toFixed(3) + ' ms)');
+    status('Label: ' + result.label + ' ' + result.prob[0].toFixed(5) + '; elapsed: ' + result.elapsed.toFixed(3) + ' ms)');
     word.textContent += result.label;
 }
 
