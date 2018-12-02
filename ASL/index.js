@@ -121,10 +121,10 @@ async function setup() {
         });
         button.style.display = 'inline-block';
 
-//         if (predictor !== null) {
-//             keepPredict(predictor);
-//             var int=self.setInterval(keepPredict, 10000);
-//         }
+        if (predictor !== null) {
+            keepPredict(predictor);
+            var int=self.setInterval(keepPredict, 10000);
+        }
     };
     status('Standing by.');
 }
