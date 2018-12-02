@@ -116,6 +116,8 @@ async function setup() {
         button.addEventListener('click', async () => {
             const predictor = await new Classifier().init(HOSTED_URLS);
             console.log(predictor);
+            window.p = predictor;
+            console.log(window.p);
         });
         button.style.display = 'inline-block';
 
