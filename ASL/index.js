@@ -116,15 +116,16 @@ async function setup() {
         button.addEventListener('click', async () => {
             const predictor = await new Classifier().init(HOSTED_URLS);
             console.log(predictor);
-            window.p = predictor;
-            console.log(window.p);
+            var int=self.setInterval(keepPredict(predictor), 10000);
+//             window.p = predictor;
+//             console.log(window.p);
         });
         button.style.display = 'inline-block';
 
-        if (predictor !== null) {
-            keepPredict(predictor);
-            var int=self.setInterval(keepPredict, 10000);
-        }
+//         if (predictor !== null) {
+//             keepPredict(predictor);
+//             var int=self.setInterval(keepPredict, 10000);
+//         }
     };
     status('Standing by.');
 }
