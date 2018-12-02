@@ -122,7 +122,7 @@ function keepPredict(predictor) {
     const result = predictor.predict(img.asType('float32'));
     console.log(result.label);
     console.log(result.prob);
-    status('Label: ' + result.label + ' ' + result.prob[0].toFixed(3) + '; elapsed: ' + result.elapsed.toFixed(3) + ' ms)');
+    status('Label: ' + result.label + '; Probability: ' + result.prob[0].toFixed(3) + '; Elapsed: ' + result.elapsed.toFixed(3) + ' ms');
     addChar(result.label);
 }
 
