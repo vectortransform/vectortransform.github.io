@@ -114,13 +114,13 @@ async function setup() {
         status('Model available: ' + HOSTED_URLS.model);
         const button = document.getElementById('load-model');
         button.addEventListener('click', async () => {
-            self.predictor = await new Classifier().init(HOSTED_URLS);
+            const predictor = await new Classifier().init(HOSTED_URLS);
+            console.log(predictor);
         });
         button.style.display = 'inline-block';
 
-        if (self.predictor !== null) {
-            console.log(self.predictor)
-            keepPredict(self.predictor);
+        if (predictor !== null) {
+            keepPredict(predictor);
             var int=self.setInterval(keepPredict, 10000);
         }
     };
