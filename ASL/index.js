@@ -23,7 +23,7 @@ function handleSuccess(stream) {
         pred_region.style.display = 'inline';
         pred_region.style.left = (w - pred_region.offsetWidth)/2 + 'px';
         pred_region.style.top = (h - pred_region.offsetHeight)/2 + 'px';
-    }, 100);
+    }, 500);
 };
 
 navigator.mediaDevices.getUserMedia({video: true}).then(handleSuccess);
