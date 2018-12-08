@@ -5,6 +5,8 @@ const HOSTED_URLS = {
 
 const player = document.getElementById('player');
 const snapshotCanvas = document.getElementById('snapshot');
+const pred_region = document.getElementById('pred-region');
+const stop_sign = document.getElementById('stop-sign');
 const chars = document.getElementById('chars');
 const lastchar = document.getElementById('lastchar');
 
@@ -13,6 +15,15 @@ const lastchar = document.getElementById('lastchar');
 function handleSuccess(stream) {
     // Attach the video stream to the video element and autoplay.
     player.srcObject = stream;
+    setTimeout(function (){
+        const w = player.videoWidth;
+        const h = player.videoHeight;
+        stop_sign.style.left = (w - stop_sign.offsetWidth)/2 + 'px';
+        stop_sign.style.top = h + 'px';
+        pred_region.style.display = 'inline';
+        pred_region.style.left = (w - pred_region.offsetWidth)/2 + 'px';
+        pred_region.style.top = (h - pred_region.offsetHeight)/2 + 'px';
+    }, 100);
 };
 
 navigator.mediaDevices.getUserMedia({video: true}).then(handleSuccess);
