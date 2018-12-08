@@ -1,33 +1,38 @@
 <!doctype html>
+<link rel="stylesheet" type="text/css" href="index.css">
 
-<body align="center">
-    <h1>
+<body>
+    <h1 align="center">
         ASL Recognizer
     </h1>
     <hr>
 
-    <div class="create-model">
+    <div class="create-model" align="center">
         <button id="load-model">Load model</button>
     </div>
     <hr>
 
-    <div>
-        <video id="player" controls autoplay></video>
+    <div class="container">
+        <div class="camera">
+            <video id="player" controls autoplay></video>
+        </div>
+        <div class="camera" id="pred-region"></div>
+        <div class="camera" id="stop-sign">
+            <!-- Stop Button -->
+            <a href="#" onclick="window.clearInterval(window.int);return false;">Stop</a>
+        </div>
+
         <canvas id="snapshot" style="display: none" width=640 height=480 ></canvas>
     </div>
-    <div>
-        <!-- Stop Button -->
-        <a href="#" onclick="window.clearInterval(window.int);return false;">Stop</a>
+    <div class="output">
+        <span id="status" >Standing by.</span>
     </div>
-    <hr>
+    <div class="output">
+        <span id="chars" ></span>
+        <span id="lastchar"></span>
+    </div>
 
-    <div>
-        <span id="status">Standing by.</span>
-    </div>
-    <div>
-        <span id="chars"></span>
-        <span id="lastchar" style="color: red; font-weight: bold; font-size: large"></span>
-    </div>
+
 
 </body>
 
