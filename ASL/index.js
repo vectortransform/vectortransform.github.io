@@ -10,6 +10,14 @@ const stop_sign = document.getElementById('stop-sign');
 const chars = document.getElementById('chars');
 const lastchar = document.getElementById('lastchar');
 
+var x_slider = new Slider("#x-slider");
+var y_slider = new Slider("#y-slider");
+// x_slider.on("slide", function(sliderValue) {
+// 	document.getElementById("xSliderVal").textContent = sliderValue;
+// });
+
+var xSliderRegion = document.getElementById('xSlider');
+var ySliderRegion = document.getElementById('ySlider');
 
 // Enable camera streaming
 function handleSuccess(stream) {
@@ -18,11 +26,24 @@ function handleSuccess(stream) {
     setTimeout(function (){
         const w = player.videoWidth;
         const h = player.videoHeight;
+        const space = 10;
+
+        snapshotCanvas.width = w;
+        snapshotCanvas.height = h;
+
+        xSliderRegion.style.left = (w - xSliderRegion.offsetWidth)/2 + 'px';
+        xSliderRegion.style.top = h + space + 'px';
+        ySliderRegion.style.left = w + space + 'px';
+        ySliderRegion.style.top = (h - ySliderRegion.offsetHeight)/2 + 'px';
+
         stop_sign.style.left = (w - stop_sign.offsetWidth)/2 + 'px';
-        stop_sign.style.top = h + 'px';
+        stop_sign.style.top = h + xSliderRegion.offsetHeight + 2*space + 'px';
+
         pred_region.style.display = 'inline';
         pred_region.style.left = (w - pred_region.offsetWidth)/2 + 'px';
         pred_region.style.top = (h - pred_region.offsetHeight)/2 + 'px';
+
+
     }, 500);
 };
 
@@ -92,11 +113,11 @@ class Classifier {
     }
 
     predict(img) {
-        // Convert to image_size
-        var inputImg = tf.image.resizeNearestNeighbor(img, [this.image_size, this.image_size]);
+        // Convert to image_size, get image slice (image_size)
+        // var inputImg = tf.image.resizeNearestNeighbor(img, [this.image_size, this.image_size]);
+        var inputImg = img.slice([player.videoHeight/2 - this.image_size/2, player.videoWidth/2 - this.image_size/2, 0], [this.image_size, this.image_size, 3]);
         // Preprocess the image
-        // inputImg.print();
-        // inputImg = inputImg.div(255.0);
+        inputImg = inputImg.div(255.0);
         inputImg = inputImg.sub(this.RGB_mean);
         inputImg = inputImg.expandDims(0);
         // console.log(inputImg.shape);
