@@ -12,9 +12,6 @@ const lastchar = document.getElementById('lastchar');
 
 var x_slider = new Slider("#x-slider");
 var y_slider = new Slider("#y-slider");
-// x_slider.on("slide", function(sliderValue) {
-// 	document.getElementById("xSliderVal").textContent = sliderValue;
-// });
 
 var xSliderRegion = document.getElementById('xSlider');
 var ySliderRegion = document.getElementById('ySlider');
@@ -43,6 +40,13 @@ function handleSuccess(stream) {
         pred_region.style.left = (w - pred_region.offsetWidth)/2 + 'px';
         pred_region.style.top = (h - pred_region.offsetHeight)/2 + 'px';
 
+        // notice lower bound and upper bound
+        x_slider.on("slide", function(sliderValue) {
+        	pred_region.style.left = (w - pred_region.offsetWidth)/2 + (w-224)/100*(sliderValue-50) +'px';
+        });
+        y_slider.on("slide", function(sliderValue) {
+        	pred_region.style.top = (h - pred_region.offsetHeight)/2 + (h-224)/100*(sliderValue-50) +'px';
+        });
 
     }, 500);
 };
