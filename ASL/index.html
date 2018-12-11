@@ -1,4 +1,6 @@
 <!doctype html>
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.3.4/css/bootstrap-slider.min.css">
 <link rel="stylesheet" type="text/css" href="./index.css">
 
 <body>
@@ -17,6 +19,16 @@
             <video id="player" controls autoplay></video>
         </div>
         <div class="camera" id="pred-region"></div>
+        <div class="camera">
+            <input id="x-slider" data-slider-id='xSlider' data-slider-tooltip="hide" type="text" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="50"/>
+            <!-- <span id="xSliderVal">50</span> -->
+            <!-- <input id="y-slider" data-slider-id='ySlider' type="text" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="50" data-slider-orientation="vertical"/> -->
+        </div>
+        <div class="camera">
+            <!-- <input id="x-slider" data-slider-id='xSlider' type="text" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="50"/> -->
+            <!-- <span id="xSliderVal">50</span> -->
+            <input id="y-slider" data-slider-id='ySlider' data-slider-tooltip="hide" type="text" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="50" data-slider-orientation="vertical"/>
+        </div>
         <div class="camera" id="stop-sign">
             <!-- Stop Button -->
             <a href="#" onclick="window.clearInterval(window.int);return false;">Stop</a>
@@ -24,7 +36,6 @@
 
         <canvas id="snapshot" style="display: none" width=640 height=480 ></canvas>
     </div>
-    
     <div class="output">
         <span id="status" >Standing by.</span>
     </div>
@@ -32,7 +43,11 @@
         <span id="chars" ></span>
         <span id="lastchar"></span>
     </div>
+
+
+
 </body>
 
 <script src='https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.3.4/bootstrap-slider.min.js"></script>
 <script src='./index.js'></script>
