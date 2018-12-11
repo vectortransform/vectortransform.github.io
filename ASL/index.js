@@ -95,10 +95,10 @@ class Classifier {
         // Convert to image_size
         var inputImg = tf.image.resizeNearestNeighbor(img, [this.image_size, this.image_size]);
         // Preprocess the image
-        inputImg.print();
+        // inputImg.print();
         inputImg = inputImg.sub(this.RGB_mean);
         inputImg = inputImg.expandDims(0);
-        console.log(inputImg.shape);
+        // console.log(inputImg.shape);
 
         // Predict the label
         status('Running inference');
