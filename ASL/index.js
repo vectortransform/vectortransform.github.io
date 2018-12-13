@@ -174,7 +174,7 @@ async function setup() {
             console.log(predictor);
             window.int = self.setInterval(function () {
                 keepPredict(predictor);
-            }, 1000);
+            }, 3000);
         });
         button.style.display = 'inline-block';
     };
