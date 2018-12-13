@@ -122,9 +122,9 @@ class Classifier {
         var inputImg = img.slice([player.videoHeight/2 - this.image_size/2, player.videoWidth/2 - this.image_size/2, 0], [this.image_size, this.image_size, 3]);
         // Preprocess the image
         console.log(inputImg.shape);
-        inputImg.print();
+        // inputImg.print();
         inputImg = inputImg.div(255.0);
-        inputImg.print();
+        // inputImg.print();
         inputImg = inputImg.sub(this.RGB_mean);
         inputImg = inputImg.expandDims(0);
 
