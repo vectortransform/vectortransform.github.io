@@ -139,6 +139,8 @@ class Classifier {
         for (i = 0; i < indices.length; i++) {
             labels.push(this.int2label[indices[i]]);
         }
+        console.log(labels);
+        console.log(probs);
         // const argMaxPred = tf.argMax(tf.squeeze(predictOut));
         // const maxPred = tf.max(tf.squeeze(predictOut));
         // console.log('Here is the result!');
@@ -148,7 +150,7 @@ class Classifier {
         predictOut.dispose();
         // argMaxPred.dispose();
         // maxPred.dispose();
-        result.dispose();
+        // result.dispose();
 
         const endMs = performance.now();
         return {labels: labels, probs: probs, elapsed: (endMs - beginMs)};
