@@ -139,8 +139,8 @@ class Classifier {
         for (i = 0; i < indices.length; i++) {
             labels.push(this.int2label[indices[i]]);
         }
-        console.log(labels);
-        console.log(probs);
+//         console.log(labels);
+//         console.log(probs);
         // const argMaxPred = tf.argMax(tf.squeeze(predictOut));
         // const maxPred = tf.max(tf.squeeze(predictOut));
         // console.log('Here is the result!');
@@ -150,19 +150,21 @@ class Classifier {
         predictOut.dispose();
         // argMaxPred.dispose();
         // maxPred.dispose();
-        // result.dispose();
+        result['indices'].dispose();
+        result['values'].dispose();
 
         const endMs = performance.now();
         return {labels: labels, probs: probs, elapsed: (endMs - beginMs)};
     }
 };
 
-// function addChar(label) {
-//     if (lastchar.textContent.slice(-1) != label) {
-//         chars.textContent += lastchar.textContent;
-//         lastchar.textContent = label;
-//     }
-// }
+function displayPred(pred) {
+    chars.textContent = pred.labels;
+    lastchar.textContent = pred.probs;
+    if (pred.probs[0]>0.85) {
+        status(pred.labels[0]);
+    }
+}
 
 function keepPredict(predictor) {
     snapshotCanvas.getContext('2d').drawImage(player, 0, 0, snapshotCanvas.width, snapshotCanvas.height);
@@ -171,7 +173,7 @@ function keepPredict(predictor) {
     console.log(pred.labels);
     console.log(pred.probs);
     // status('Label: ' + result.label + '; Probability: ' + result.prob[0].toFixed(3) + '; Elapsed: ' + result.elapsed.toFixed(3) + ' ms');
-    // addChar(result.label);
+    displayPred(pred);
 }
 
 async function setup() {
