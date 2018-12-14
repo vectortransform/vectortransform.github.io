@@ -7,7 +7,7 @@ const player = document.getElementById('player');
 const snapshotCanvas = document.getElementById('snapshot');
 const pred_region = document.getElementById('pred-region');
 const stop_sign = document.getElementById('stop-sign');
-const char_final = document.getElementById('char_final');
+const char_final = document.getElementById('char-final');
 
 var x_slider = new Slider("#x-slider");
 var y_slider = new Slider("#y-slider");
@@ -160,7 +160,7 @@ class Classifier {
 function displayPred(pred) {
     var i;
     for (i = 0; i < 5; i++) {
-        document.getElementById('p'+i).textContent = pred.labels[i] + ': ' + pred.probs[i];
+        document.getElementById('p'+i).textContent = pred.labels[i] + ': ' + pred.probs[i].toFixed(3);
     }
     if (pred.probs[0]>0.7) {
         char_final.textContent = pred.labels[0];
