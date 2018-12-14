@@ -11,6 +11,7 @@
 
     <div class="create-model" align="center">
         <button id="load-model">Load model</button>
+        <span id="status" > Standing by.</span>
     </div>
     <hr>
 
@@ -36,12 +37,14 @@
 
         <canvas id="snapshot" style="display: none" width=640 height=480 ></canvas>
     </div>
+
     <div class="output">
-        <span id="status" >Standing by.</span>
-    </div>
-    <div class="output">
-        <span id="chars" ></span>
-        <span id="lastchar"></span>
+        <div id="p0" class="char"></div>
+        <div id="p1" class="char"></div>
+        <div id="p2" class="char"></div>
+        <div id="p3" class="char"></div>
+        <div id="p4" class="char"></div>
+        <div id="char-final"></div>
     </div>
 
 
