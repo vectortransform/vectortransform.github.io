@@ -7,8 +7,7 @@ const player = document.getElementById('player');
 const snapshotCanvas = document.getElementById('snapshot');
 const pred_region = document.getElementById('pred-region');
 const stop_sign = document.getElementById('stop-sign');
-const chars = document.getElementById('chars');
-const lastchar = document.getElementById('lastchar');
+const char_final = document.getElementById('char_final');
 
 var x_slider = new Slider("#x-slider");
 var y_slider = new Slider("#y-slider");
@@ -159,10 +158,15 @@ class Classifier {
 };
 
 function displayPred(pred) {
-    chars.textContent = pred.labels;
-    lastchar.textContent = pred.probs;
-    if (pred.probs[0]>0.85) {
-        status(pred.labels[0]);
+    var i;
+    for (i = 0; i < 5; i++) {
+        document.getElementById('p'+i).textContent = pred.labels[i] + ': ' + pred.probs[i];
+    }
+    if (pred.probs[0]>0.7) {
+        char_final.textContent = pred.labels[0];
+    }
+    else {
+        char_final.textContent = '';
     }
 }
 
@@ -172,7 +176,7 @@ function keepPredict(predictor) {
     const pred = predictor.predict(img.asType('float32'));
     console.log(pred.labels);
     console.log(pred.probs);
-    // status('Label: ' + result.label + '; Probability: ' + result.prob[0].toFixed(3) + '; Elapsed: ' + result.elapsed.toFixed(3) + ' ms');
+    status('Elapsed: ' + result.elapsed.toFixed(3) + ' ms');
     displayPred(pred);
 }
 
