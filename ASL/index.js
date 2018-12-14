@@ -131,7 +131,7 @@ class Classifier {
         const beginMs = performance.now();
 
         const predictOut = this.model.predict(inputImg);
-        const result = tf.topk(tf.squeeze(predictOut), k=5);
+        const result = tf.topk(tf.squeeze(predictOut), 5);
         const indices = result['indices'].dataSync();
         const probs = result['values'].dataSync();
         var labels = [];
