@@ -176,7 +176,7 @@ function keepPredict(predictor) {
     const pred = predictor.predict(img.asType('float32'));
     console.log(pred.labels);
     console.log(pred.probs);
-    status('Elapsed: ' + result.elapsed.toFixed(3) + ' ms');
+    status('Elapsed: ' + pred.elapsed.toFixed(3) + ' ms');
     displayPred(pred);
 }
 
