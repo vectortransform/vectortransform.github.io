@@ -10,7 +10,11 @@
 }
 
 .output {
-    float:right;
+    float: right;
+}
+
+.char {
+    font-size: 60px;
 }
 
 #pred-region {
@@ -30,8 +34,8 @@
 	background: #ADD8E6;
 }
 
-#lastchar {
+#char-final {
     color: red;
     font-weight: bold;
-    font-size: large;
+    font-size: 200px;
 }
