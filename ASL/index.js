@@ -121,48 +121,55 @@ class Classifier {
         // var inputImg = tf.image.resizeNearestNeighbor(img, [this.image_size, this.image_size]);
         var inputImg = img.slice([player.videoHeight/2 - this.image_size/2, player.videoWidth/2 - this.image_size/2, 0], [this.image_size, this.image_size, 3]);
         // Preprocess the image
-        console.log(inputImg.shape);
-        // inputImg.print();
         inputImg = inputImg.div(255.0);
-        // inputImg.print();
         inputImg = inputImg.sub(this.RGB_mean);
         inputImg = inputImg.expandDims(0);
+        // console.log(inputImg.shape);
 
         // Predict the label
         status('Running inference');
         const beginMs = performance.now();
 
         const predictOut = this.model.predict(inputImg);
-        const argMaxPred = tf.argMax(tf.squeeze(predictOut));
-        const maxPred = tf.max(tf.squeeze(predictOut));
+        const result = tf.topk(tf.squeeze(predictOut), k=5);
+        const indices = result['indices'].dataSync();
+        const probs = result['values'].dataSync();
+        var labels = [];
+        var i;
+        for (i = 0; i < indices.length; i++) {
+            labels.push(this.int2label[indices[i]]);
+        }
+        // const argMaxPred = tf.argMax(tf.squeeze(predictOut));
+        // const maxPred = tf.max(tf.squeeze(predictOut));
         // console.log('Here is the result!');
         // return how many probabilities?
-        const label = this.int2label[argMaxPred.dataSync()];
-        const prob = maxPred.dataSync();
+        // const label = this.int2label[argMaxPred.dataSync()];
+        // const prob = maxPred.dataSync();
         predictOut.dispose();
-        argMaxPred.dispose();
-        maxPred.dispose();
+        // argMaxPred.dispose();
+        // maxPred.dispose();
+        result.dispose();
 
         const endMs = performance.now();
-        return {label: label, prob: prob, elapsed: (endMs - beginMs)};
+        return {labels: labels, probs: probs, elapsed: (endMs - beginMs)};
     }
 };
 
-function addChar(label) {
-    if (lastchar.textContent.slice(-1) != label) {
-        chars.textContent += lastchar.textContent;
-        lastchar.textContent = label;
-    }
-}
+// function addChar(label) {
+//     if (lastchar.textContent.slice(-1) != label) {
+//         chars.textContent += lastchar.textContent;
+//         lastchar.textContent = label;
+//     }
+// }
 
 function keepPredict(predictor) {
     snapshotCanvas.getContext('2d').drawImage(player, 0, 0, snapshotCanvas.width, snapshotCanvas.height);
     const img = tf.fromPixels(snapshotCanvas);
-    const result = predictor.predict(img.asType('float32'));
-    console.log(result.label);
-    console.log(result.prob);
-    status('Label: ' + result.label + '; Probability: ' + result.prob[0].toFixed(3) + '; Elapsed: ' + result.elapsed.toFixed(3) + ' ms');
-    addChar(result.label);
+    const pred = predictor.predict(img.asType('float32'));
+    console.log(pred.labels);
+    console.log(pred.probs);
+    // status('Label: ' + result.label + '; Probability: ' + result.prob[0].toFixed(3) + '; Elapsed: ' + result.elapsed.toFixed(3) + ' ms');
+    // addChar(result.label);
 }
 
 async function setup() {
@@ -174,7 +181,7 @@ async function setup() {
             console.log(predictor);
             window.int = self.setInterval(function () {
                 keepPredict(predictor);
-            }, 3000);
+            }, 1000);
         });
         button.style.display = 'inline-block';
     };
