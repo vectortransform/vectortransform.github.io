@@ -1,20 +1,18 @@
 .container {
     position: relative;
-    /* text-align: center; */
 }
 
 .camera {
     position: absolute;
     z-index: -2;
-    /* text-align: center; */
 }
 
 .output {
-    color: #00BFFF;
     float: right;
 }
 
 .char {
+    color: #00BFFF;
     font-size: 60px;
     margin-right: 100px;
 }
@@ -24,8 +22,7 @@
     height: 224px;
     width: 224px;
     border: solid;
-    border-color: #0000FF;
-    /* background-color:rgb(100, 100, 100); */
+    border-color: #00BFFF;
 }
 
 #xSlider .slider-selection {
