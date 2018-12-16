@@ -17,7 +17,6 @@ var ySliderRegion = document.getElementById('ySlider');
 
 // Enable camera streaming
 function handleSuccess(stream) {
-    // Attach the video stream to the video element and autoplay.
     player.srcObject = stream;
     setTimeout(function (){
         const w = player.videoWidth;
@@ -46,8 +45,7 @@ function handleSuccess(stream) {
         y_slider.on("slide", function(sliderValue) {
         	pred_region.style.top = (h - pred_region.offsetHeight)/2 + (h-224)/100*(sliderValue-50) +'px';
         });
-
-    }, 500);
+    }, 1000);
 };
 
 navigator.mediaDevices.getUserMedia({video: true}).then(handleSuccess);
@@ -117,8 +115,8 @@ class Classifier {
 
     predict(img) {
         // Convert to image_size, get image slice (image_size)
-        // var inputImg = tf.image.resizeNearestNeighbor(img, [this.image_size, this.image_size]);
-        var inputImg = img.slice([player.videoHeight/2 - this.image_size/2, player.videoWidth/2 - this.image_size/2, 0], [this.image_size, this.image_size, 3]);
+        var inputImg = img.slice([pred_region.offsetTop + pred_region.clientTop, pred_region.offsetLeft + pred_region.clientLeft, 0], [this.image_size, this.image_size, 3]);
+        // var inputImg = img.slice([player.videoHeight/2 - this.image_size/2, player.videoWidth/2 - this.image_size/2, 0], [this.image_size, this.image_size, 3]);
         // Preprocess the image
         inputImg = inputImg.div(255.0);
         inputImg = inputImg.sub(this.RGB_mean);
@@ -138,17 +136,7 @@ class Classifier {
         for (i = 0; i < indices.length; i++) {
             labels.push(this.int2label[indices[i]]);
         }
-//         console.log(labels);
-//         console.log(probs);
-        // const argMaxPred = tf.argMax(tf.squeeze(predictOut));
-        // const maxPred = tf.max(tf.squeeze(predictOut));
-        // console.log('Here is the result!');
-        // return how many probabilities?
-        // const label = this.int2label[argMaxPred.dataSync()];
-        // const prob = maxPred.dataSync();
         predictOut.dispose();
-        // argMaxPred.dispose();
-        // maxPred.dispose();
         result['indices'].dispose();
         result['values'].dispose();
 
