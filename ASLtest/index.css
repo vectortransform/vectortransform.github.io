@@ -1,0 +1,40 @@
+.container {
+    position: relative;
+}
+
+.camera {
+    position: absolute;
+    z-index: -2;
+}
+
+.output {
+    float: right;
+}
+
+.char {
+    color: #00BFFF;
+    font-size: 60px;
+    margin-right: 100px;
+}
+
+#pred-region {
+    display: none;
+    height: 224px;
+    width: 224px;
+    border: solid;
+    border-color: #00BFFF;
+}
+
+#xSlider .slider-selection {
+	background: #ADD8E6;
+}
+
+#ySlider .slider-selection {
+	background: #ADD8E6;
+}
+
+#char-final {
+    color: red;
+    font-weight: bold;
+    font-size: 200px;
+}
