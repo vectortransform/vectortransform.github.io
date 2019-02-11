@@ -106,8 +106,8 @@ class Classifier {
 
     async loadMetadata() {
         const metadata = await loadHostedMetadata(this.urls.metadata);
-        this.label2int = metadata['label2int'];
-        this.int2label = metadata['int2label'];
+        this.alphabet2int = metadata['alphabet2int'];
+        this.int2alphabet = metadata['int2alphabet'];
         this.image_size = metadata['image_size'];
         this.RGB_mean = metadata['RGB_mean'];
         console.log('RGB_mean = ' + this.RGB_mean);
@@ -131,7 +131,7 @@ class Classifier {
         var labels = [];
         var i;
         for (i = 0; i < indices.length; i++) {
-            labels.push(this.int2label[indices[i]]);
+            labels.push(this.int2alphabet[indices[i]]);
         }
         predictOut.dispose();
         result['indices'].dispose();
