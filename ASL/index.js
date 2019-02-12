@@ -15,7 +15,8 @@ var y_slider = new Slider("#y-slider");
 var xSliderRegion = document.getElementById('xSlider');
 var ySliderRegion = document.getElementById('ySlider');
 
-// Enable camera streaming
+
+// Camera streaming
 function handleSuccess(stream) {
     player.srcObject = stream;
     setTimeout(function (){
@@ -38,7 +39,6 @@ function handleSuccess(stream) {
         pred_region.style.left = (w - pred_region.offsetWidth)/2 + 'px';
         pred_region.style.top = (h - pred_region.offsetHeight)/2 + 'px';
 
-        // notice lower bound and upper bound
         x_slider.on("slide", function(sliderValue) {
         	pred_region.style.left = (w - pred_region.offsetWidth)/2 + (w-224)/100*(sliderValue-50) +'px';
         });
@@ -106,22 +106,19 @@ class Classifier {
 
     async loadMetadata() {
         const metadata = await loadHostedMetadata(this.urls.metadata);
-        this.label2int = metadata['label2int'];
-        this.int2label = metadata['int2label'];
+        this.alphabet2int = metadata['alphabet2int'];
+        this.int2alphabet = metadata['int2alphabet'];
         this.image_size = metadata['image_size'];
         this.RGB_mean = metadata['RGB_mean'];
         console.log('RGB_mean = ' + this.RGB_mean);
     }
 
     predict(img) {
-        // Convert to image_size, get image slice (image_size)
         var inputImg = img.slice([pred_region.offsetTop + pred_region.clientTop, pred_region.offsetLeft + pred_region.clientLeft, 0], [this.image_size, this.image_size, 3]);
-        // var inputImg = img.slice([player.videoHeight/2 - this.image_size/2, player.videoWidth/2 - this.image_size/2, 0], [this.image_size, this.image_size, 3]);
         // Preprocess the image
         inputImg = inputImg.div(255.0);
         inputImg = inputImg.sub(this.RGB_mean);
         inputImg = inputImg.expandDims(0);
-        // console.log(inputImg.shape);
 
         // Predict the label
         status('Running inference');
@@ -134,7 +131,7 @@ class Classifier {
         var labels = [];
         var i;
         for (i = 0; i < indices.length; i++) {
-            labels.push(this.int2label[indices[i]]);
+            labels.push(this.int2alphabet[indices[i]]);
         }
         predictOut.dispose();
         result['indices'].dispose();
