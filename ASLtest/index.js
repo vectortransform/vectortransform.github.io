@@ -45,7 +45,7 @@ function handleSuccess(stream) {
         y_slider.on("slide", function(sliderValue) {
         	pred_region.style.top = (h - pred_region.offsetHeight)/2 + (h-224)/100*(sliderValue-50) +'px';
         });
-    }, 1000);
+    }, 5000);
 };
 
 navigator.mediaDevices.getUserMedia({video: true}).then(handleSuccess);
