@@ -70,7 +70,7 @@ async function urlExists(url) {
 async function loadHostedPretrainedModel(url) {
     status('Loading pretrained model from ' + url);
     try {
-        const model = await tf.loadModel(url);
+        const model = await tf.loadLayersModel(url);
         status('Done loading pretrained model.');
         document.getElementById('load-model').style.display = 'none';
         return model;
