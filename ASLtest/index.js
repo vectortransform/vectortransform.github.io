@@ -157,7 +157,7 @@ function displayPred(pred) {
 
 function keepPredict(predictor) {
     snapshotCanvas.getContext('2d').drawImage(player, 0, 0, snapshotCanvas.width, snapshotCanvas.height);
-    const img = tf.fromPixels(snapshotCanvas);
+    const img = tf.browser.fromPixels(snapshotCanvas);
     const pred = predictor.predict(img.asType('float32'));
     console.log(pred.labels);
     console.log(pred.probs);
