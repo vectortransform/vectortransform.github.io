@@ -6,7 +6,6 @@ const HOSTED_URLS = {
 const player = document.getElementById('player');
 const snapshotCanvas = document.getElementById('snapshot');
 const pred_region = document.getElementById('pred-region');
-const stop_sign = document.getElementById('stop-sign');
 const char_final = document.getElementById('char-final');
 
 var x_slider = new Slider("#x-slider");
@@ -31,9 +30,6 @@ function handleSuccess(stream) {
         xSliderRegion.style.top = h + space + 'px';
         ySliderRegion.style.left = w + space + 'px';
         ySliderRegion.style.top = (h - ySliderRegion.offsetHeight)/2 + 'px';
-
-        stop_sign.style.left = (w - stop_sign.offsetWidth)/2 + 'px';
-        stop_sign.style.top = h + xSliderRegion.offsetHeight + 2*space + 'px';
 
         pred_region.style.display = 'inline';
         pred_region.style.left = (w - pred_region.offsetWidth)/2 + 'px';
