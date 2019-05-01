@@ -45,7 +45,7 @@ function handleSuccess(stream) {
         y_slider.on("slide", function(sliderValue) {
         	pred_region.style.top = (h - pred_region.offsetHeight)/2 + (h-224)/100*(sliderValue-50) +'px';
         });
-    }, 1000);
+    }, 5000);
 };
 
 navigator.mediaDevices.getUserMedia({video: true}).then(handleSuccess);
@@ -70,7 +70,7 @@ async function urlExists(url) {
 async function loadHostedPretrainedModel(url) {
     status('Loading pretrained model from ' + url);
     try {
-        const model = await tf.loadModel(url);
+        const model = await tf.loadLayersModel(url);
         status('Done loading pretrained model.');
         document.getElementById('load-model').style.display = 'none';
         return model;
@@ -157,7 +157,7 @@ function displayPred(pred) {
 
 function keepPredict(predictor) {
     snapshotCanvas.getContext('2d').drawImage(player, 0, 0, snapshotCanvas.width, snapshotCanvas.height);
-    const img = tf.fromPixels(snapshotCanvas);
+    const img = tf.browser.fromPixels(snapshotCanvas);
     const pred = predictor.predict(img.asType('float32'));
     console.log(pred.labels);
     console.log(pred.probs);
