@@ -17,6 +17,15 @@
     margin-right: 100px;
 }
 
+.footer {
+  position: absolute;
+  right: 0;
+  bottom: 10px;
+  left: 0;
+  font-size: 20px;
+  text-align: center;
+}
+
 #pred-region {
     display: none;
     height: 224px;
